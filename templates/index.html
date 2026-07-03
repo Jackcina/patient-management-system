@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arav Acupuncture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+     <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <h1>Arav Acupuncture</h1>
+     </div>
+
+    <form method="POST" autocomplete="off">
+        <label>Date of Joining</label><br>
+        <input type="date" name="doj"><br><br> 
+
+        <label>Patient Name</label><br>
+        <input type="text" name="patient_name" required><br><br>
+
+        <label>Phone Number</label><br>
+        <input type="text" name="phone_no"><br><br>
+
+        <label>Date of Birth</label><br>
+        <input type="date" name="dob"><br><br>
+
+        <label>Age</label><br>
+        <input type="number" name="age" required><br><br>
+
+        <label>Sex</label><br>
+        <input type="radio" name="sex" value="Male"> Male
+        <input type="radio" name="sex" value="Female"> Female
+        <br><br>
+
+        <label>Duration</label><br>
+        <input type="text" name="duration"><br><br>
+
+        <label>Disease</label><br>
+        <input type="text" name="disease"><br><br>
+
+        <label>Before</label><br>
+        <input type="text" name="before_value"><br><br>
+
+        <label>After</label><br>
+        <input type="text" name="after_value"><br><br>
+  
+        <label>Notes</label><br>
+        <textarea name="notes"></textarea><br><br>
+
+        <button type="submit">Save Patient</button>
+
+    </form>
+    <hr>
+
+    <h2 id="records">Patient Records</h2>
+
+<form method="GET" autocomplete="off">
+    <input type="text" name="search" placeholder="Search by Name or Disease">
+    <button type="submit">Search</button>
+    <a href="{{ url_for('home') }}">Reset</a>
+</form>
+<div class="table-container" >
+
+    <table border="1" cellpadding="8">
+       <tr>
+         <th>DOJ</th>
+         <th>Name</th>
+         <th>Phone_No</th>
+         <th>DOB</th>
+         <th>Age</th>
+         <th>Sex</th>
+         <th>Duration</th>
+         <th>Disease</th>
+         <th>Before</th>
+         <th>After</th>
+         <th>Notes</th>
+         <th>Action</th>
+    </tr>
+
+    {% for patient in patients %}
+    <tr>
+        <td>{{ patient[1][8:10] }}-{{ patient[1][5:7] }}-{{ patient[1][0:4] }}</td>
+        <td>{{ patient[2] }}</td>
+        <td>{{ patient[3] }}</td>
+        <td>{{ patient[4][8:10] }}-{{ patient[4][5:7] }}-{{ patient[4][0:4] }}</td>
+        <td>{{ patient[5] }}</td>
+        <td>{{ patient[6] }}</td>
+        <td>{{ patient[7] }}</td>
+        <td>{{ patient[8] }}</td>
+        <td>{{ patient[9] }}</td>
+        <td>{{ patient[10] }}</td>
+        <td>{{ patient[11] }}</td>
+        <td>
+            <a href="/edit/{{ patient[0] }}">Edit</a> |
+            <a href="/delete/{{ patient[0] }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+</div>
+</body>
+</html>
